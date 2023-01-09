@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="container text-center pt-3">
+        <div class="h3 text-primary mb-3">Schengen calculator</div>
+        {% if count > 90 %}
+            <div class="h4 text-danger">Days used: {{ count }} / 90</div>
+        {% else %}
+            <div class="h4 text-success">Days used: {{ count }} / 90</div>
+        {% endif %}
+        <div class="text-secondary">Window start: {{ window_start|date:"D d M Y" }}</div>
+        {%  if trips %}
+            {% for trip in trips %}
+                {% include "main/trip_card.html" with trip=trip %}
+            {% endfor %}
+        {% else %}
+            <div class="text-secondary">No trips recorded in the Schengen window. Add a trip below!</div>
+        {% endif %}
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary shadow"
+               role="button"
+               href="{% url 'new_trip' %}">New trip</a>
+        </div>
+    </div>
+{% endblock content %}

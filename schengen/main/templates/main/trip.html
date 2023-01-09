@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="container text-center pt-3">
+        <div class="h3 text-primary mb-3">Schengen calculator</div>
+        <h5 class="card-title">{{ trip.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Trip</h6>
+        <div>{{ trip.start_date|date:"D d M Y" }}</div>
+        <div>{{ trip.end_date|date:"D d M Y" }}</div>
+        <div>Day count: {{ trip.day_count }}</div>
+        <div class="d-grid gap-2">
+            <a class="btn btn-danger shadow" role="button" href="{% url 'delete-trip' trip.pk %}">Delete trip</a>
+        </div>
+    </div>
+{% endblock content %}
