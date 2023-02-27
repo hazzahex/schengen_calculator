@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '164.90.188.143']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'main',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -112,6 +114,22 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CRISPY_CLASS_CONVERTERS = {
+    'textinput': "form-control cst__radius text-primary",
+    'urlinput': "form-control cst__radius",
+    'numberinput': "form-control cst__radius",
+    'emailinput': "form-control cst__radius text-primary",
+    'dateinput': "form-control cst__radius",
+    'textarea': "form-control cst__radius text-primary",
+    'passwordinput': "form-control cst__radius text-primary",
+    'select': "form-control cst__radius",
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

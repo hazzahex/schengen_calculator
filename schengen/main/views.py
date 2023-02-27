@@ -1,7 +1,20 @@
 from django.shortcuts import render, redirect
 from .utils import get_windows_trips, create_trip, get_window_start, get_trip
+from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            form.save()
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'main/register.html', {'form': form})
+
+@login_required
 def home_view(request):
     trips = get_windows_trips()
     window_start = get_window_start()
@@ -14,13 +27,16 @@ def home_view(request):
             count += days_in_window
         else:
             count += trip.day_count
+    progress = round((count / 90) * 100)
     context = {
         'trips': trips,
         'count': count,
+        'progress': progress,
         'window_start': get_window_start()
     }
     return render(request, 'main/home.html', context=context)
 
+@login_required
 def new_trip_view(request):
     context = {
 
@@ -32,6 +48,7 @@ def new_trip_view(request):
     else:
         return render(request, 'main/create_trip.html', context=context)
 
+@login_required
 def trip_view(request, trip_pk):
     trip = get_trip(trip_pk)
     context = {
@@ -39,6 +56,7 @@ def trip_view(request, trip_pk):
     }
     return render(request, 'main/trip.html', context=context)
 
+@login_required
 def delete_trip(request, trip_pk):
     trip = get_trip(trip_pk)
     trip.delete()
