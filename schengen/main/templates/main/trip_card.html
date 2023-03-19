@@ -1,11 +1,46 @@
-<div class="card mt-2 mb-2 shadow-sm border-primary">
-    <div class="card-body">
-        <h5 class="card-title text-primary">{{ trip.name }}</h5>
-        <h6 class="card-subtitle mb-3 text-muted">Trip</h6>
-        <div class="border rounded p-2 shadow-sm mb-3">{{ trip.start_date|date:"D d M Y" }} - {{ trip.end_date|date:"D d M Y" }}</div>
-        <div class="d-flex ">
-            <div class="me-auto">Day count: {{ trip.day_count }}</div>
-            <a role="button button-secondary p-3" href="{% url 'trip-view' trip.pk %}" class="ms-auto">✏️</a>
-        </div>
+{% if trip.current == True %}
+<div class="card mt-2 mb-2 shadow-sm border-success border-3">
+  <div class="card-body">
+    <h5 class="card-title text-success">{{ trip.name }} - Current</h5>
+    <h6 class="card-subtitle mb-3 text-muted">Trip</h6>
+    <div class="border rounded p-2 shadow-sm mb-3">
+      {{ trip.start_date|date:"D d M Y" }} - {{ trip.end_date|date:"D d M Y" }}
     </div>
+    <div class="d-flex align-content-end">
+      <div class="me-auto">Day count: {{ trip.day_count }}</div>
+      <a
+        role="button"
+        class="button-secondary p-1 text-decoration-none"
+        href="{% url 'trip-view' trip.pk %}"
+        >✏️</a
+      >
+      <a
+        role="button"
+        class="button-secondary p-1 text-decoration-none"
+        href="{% url 'refresh-trip' trip.pk %}"
+        >↻</a
+      >
+    </div>
+  </div>
 </div>
+{% else %}
+<div class="card mt-2 mb-2 shadow-sm border-primary">
+  <div class="card-body">
+    <h5 class="card-title text-primary">{{ trip.name }}</h5>
+    <h6 class="card-subtitle mb-3 text-muted">Trip</h6>
+    <div class="border rounded p-2 shadow-sm mb-3">
+      {{ trip.start_date|date:"D d M Y" }} - {{ trip.end_date|date:"D d M Y" }}
+    </div>
+    <div class="d-flex align-content-end">
+      <div class="me-auto">Day count: {{ trip.day_count }}</div>
+      <a
+        role="button"
+        class="button-secondary p-1 text-decoration-none"
+        href="{% url 'trip-view' trip.pk %}"
+        class="ms-auto"
+        >✏️</a
+      >
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,19 +1,35 @@
-{% extends 'main/base.html' %}
-{% block content %}
+{% extends 'main/base.html' %} {% block content %}
 <div class="container pt-3">
-    <div class="h1 text-primary mb-3">Schengen calculator</div>
-    <div class="card mt-2 mb-2 shadow-sm border-primary">
-        <div class="card-body">
-            <h5 class="card-title text-primary">{{ trip.name }}</h5>
-            <h6 class="card-subtitle mb-3 text-muted">Trip</h6>
-            <div class="border rounded p-2 shadow-sm mb-3">{{ trip.start_date|date:"D d M Y" }} - {{ trip.end_date|date:"D d M Y" }}</div>
-            <div>Day count: {{ trip.day_count }}</div>
-        </div>
+  <div class="h1 text-primary mb-3">Schengen calculator</div>
+  <div class="card mt-2 mb-2 shadow-sm border-primary">
+    <div class="card-body">
+      <h5 class="card-title text-primary">{{ trip.name }}</h5>
+      <h6 class="card-subtitle mb-3 text-muted">Trip</h6>
+      <div class="border rounded p-2 shadow-sm mb-3">
+        <span> {{ trip.start_date|date:"D d M Y" }} </span>
+        -
+        <span>{{ trip.end_date|date:"D d M Y" }}</span>
+      </div>
+      <div>Day count: {{ trip.day_count }}</div>
     </div>
-    <div class="d-grid gap-2 mb-2">
-        <a href="{% url 'delete-trip' trip.pk %}" role="button" class="btn btn-danger">Delete trip</a>
-        <a href="{% url 'home' %}" role="button" class="btn btn-outline-secondary">Back</a>
-    </div>
+  </div>
+  <div class="d-grid gap-2 mb-2">
+    <a
+      href="{% url 'end-trip-today' trip.pk %}"
+      role="button"
+      class="btn btn-danger"
+      >Update trip</a
+    >
+    <a
+      href="{% url 'delete-trip' trip.pk %}"
+      role="button"
+      class="btn btn-danger"
+      >Delete trip</a
+    >
+    <a href="{% url 'home' %}" role="button" class="btn btn-outline-secondary"
+      >Back</a
+    >
+  </div>
 </div>
 
 {% endblock content %}

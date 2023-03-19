@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %} {% block content %}
+<div class="container pt-3">
+  <div class="h2 text-primary">Create trip</div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control border-primary shadow-sm"
+        id="name"
+        name="name"
+        value="{{ trip.name }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="start_date" class="form-label"
+        >Start date (date of departure from UK)</label
+      >
+      <input
+        type="date"
+        class="form-control border-primary shadow-sm"
+        id="start_date"
+        name="start_date"
+        value="{{ trip.start_date|date:'Y-m-d' }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="end_date" class="form-label"
+        >End date (date arrived back into UK)</label
+      >
+      <input
+        type="date"
+        class="form-control border-primary shadow-sm"
+        id="end_date"
+        name="end_date"
+        value="{{ trip.end_date|date:'Y-m-d' }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="current" class="form-check-label"
+        >Are you still on this trip?</label
+      >
+      <input type="checkbox" class="form-check-input" id="current"
+      name="current" {% if trip.current %} checked {% else %} '' {% endif %}>
+    </div>
+
+    <button type="submit" class="btn btn-primary shadow-sm">Save</button>
+  </form>
+</div>
+{% endblock content %}
